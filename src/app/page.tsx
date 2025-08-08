@@ -1,103 +1,100 @@
+// app/page.tsx
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen w-full bg-[#070b12] text-white relative overflow-hidden">
+      {/* soft vignette + grid lines */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-40 -left-56 h-[600px] w-[600px] rounded-full blur-3xl opacity-40"
+             style={{ background: "radial-gradient(closest-side, #0ea5e9 0%, transparent 60%)" }} />
+        <div className="absolute -bottom-10 inset-x-0 h-56 opacity-30">
+          <svg className="w-full h-full" viewBox="0 0 1440 160" preserveAspectRatio="none">
+            <defs>
+              <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+                <path d="M80 0H0V80" fill="none" stroke="rgba(255,255,255,0.08)" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
         </div>
+      </div>
+
+      {/* Top Nav */}
+      <header className="sticky top-0 z-20">
+        <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between rounded-full bg-white/5 backdrop-blur border border-white/10 px-4 py-3">
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-6 rounded-md bg-cyan-400" />
+              <span className="text-sm font-semibold tracking-wide text-white/90">GydeXP</span>
+            </div>
+
+            <ul className="hidden md:flex items-center gap-6 text-sm text-white/70">
+              <li className="hover:text-white transition">Tracking Studio</li>
+              <li className="hover:text-white transition">About Us</li>
+              <li className="hover:text-white transition">Pricing</li>
+              <li className="hover:text-white transition">Experiences</li>
+              <li className="hover:text-white transition">DreamXP</li>
+              <li className="hover:text-white transition">Log In</li>
+            </ul>
+
+            <button className="ml-4 inline-flex items-center rounded-full bg-[#0ea5e9] hover:bg-[#0891b2] text-white text-sm font-medium px-4 py-2 shadow-[0_8px_30px_rgba(14,165,233,0.35)]">
+              Book a Demo
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Hero */}
+      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+        <section className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center py-12 lg:py-20">
+          <div className="relative z-10">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05]">
+              The issue tracking
+              <br />
+              tool you’ll enjoy using.
+            </h1>
+
+            <p className="mt-6 text-base sm:text-lg text-white/70 max-w-xl">
+              Linear helps streamline software projects, sprints, tasks and bug tracking.
+              It’s built for high-performance teams.
+            </p>
+
+            <div className="mt-8">
+              <a
+                href="#"
+                className="inline-flex items-center gap-2 rounded-full bg-white text-black px-5 py-3 text-sm font-semibold hover:bg-white/90 transition shadow-[0_8px_30px_rgba(255,255,255,0.15)]"
+              >
+                Start Your Free Trial
+                <span className="inline-block h-5 w-5 rounded-full bg-black text-white grid place-items-center text-[11px]">→</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Right visual */}
+          <div className="relative">
+            {/* glow behind image */}
+            <div
+              aria-hidden
+              className="absolute -inset-10 rounded-3xl blur-2xl opacity-70"
+              style={{
+                background:
+                  "radial-gradient(60% 60% at 50% 50%, rgba(14,165,233,0.45) 0%, rgba(2,6,23,0) 65%)",
+              }}
+            />
+            <div className="relative mx-auto max-w-md lg:max-w-lg">
+              <Image
+                src="/tiles.png"
+                alt="Neon blue tiles abstract"
+                width={900}
+                height={900}
+                className="w-full h-auto drop-shadow-[0_30px_80px_rgba(14,165,233,0.45)]"
+                priority
+              />
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
