@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
+// Interactive cube component
 function InteractiveCube() {
   const ref = useRef<HTMLDivElement | null>(null);
   const prefersReduced =
@@ -14,7 +15,6 @@ function InteractiveCube() {
     if (!el || prefersReduced) return;
 
     let raf = 0;
-
     const onMove = (e: MouseEvent) => {
       const r = el.getBoundingClientRect();
       const x = e.clientX - r.left;
@@ -244,7 +244,10 @@ export default function Page() {
 
       {/* BOTTOM SECTION */}
       <section className="w-full bg-black py-10 flex flex-col items-center justify-center border-t border-white/10">
-        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase" style={{ color: "#3A89FF" }}>
+        <h2
+          className="text-0.5xl sm:text-0.5xl font-normal tracking-tight uppercase"
+          style={{ color: "#3A89FF", fontFamily: "Inter, sans-serif" }}
+        >
           POWERING THE NEXT GENERATION OF COMPANIES
         </h2>
         <div className="mt-10 flex flex-col items-center gap-8 w-full px-6">
