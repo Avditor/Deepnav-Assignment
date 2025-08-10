@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
-/** --- tiny interaction: pointer-tilt + glow, no three.js --- */
 function InteractiveCube() {
   const ref = useRef<HTMLDivElement | null>(null);
   const prefersReduced =
@@ -20,8 +19,8 @@ function InteractiveCube() {
       const r = el.getBoundingClientRect();
       const x = e.clientX - r.left;
       const y = e.clientY - r.top;
-      const px = x / r.width; // 0..1
-      const py = y / r.height; // 0..1
+      const px = x / r.width;
+      const py = y / r.height;
 
       const rotY = (px - 0.5) * 30;
       const rotX = (0.5 - py) * 22;
@@ -240,6 +239,29 @@ export default function Page() {
         <div className="pointer-events-none relative mt-14 h-24">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
           <div className="absolute inset-x-0 top-2 h-20 bg-gradient-to-b from-transparent to-cyan-500/5 blur-2xl" />
+        </div>
+      </section>
+
+      {/* BOTTOM SECTION */}
+      <section className="w-full bg-black py-10 flex flex-col items-center justify-center border-t border-white/10">
+        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase" style={{ color: "#3A89FF" }}>
+          POWERING THE NEXT GENERATION OF COMPANIES
+        </h2>
+        <div className="mt-10 flex flex-col items-center gap-8 w-full px-6">
+          <Image
+            src="/firstlinelogo.png"
+            alt="First Line Logo"
+            width={1920}
+            height={300}
+            className="object-contain w-full"
+          />
+          <Image
+            src="/secondlinelogo.png"
+            alt="Second Line Logo"
+            width={1920}
+            height={300}
+            className="object-contain w-full"
+          />
         </div>
       </section>
 
