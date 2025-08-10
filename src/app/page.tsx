@@ -1,99 +1,123 @@
-// app/page.tsx
+"use client";
 import Image from "next/image";
 
-export default function Home() {
+export default function Page() {
   return (
-    <div className="min-h-screen w-full bg-[#070b12] text-white relative overflow-hidden">
-      {/* soft vignette + grid lines */}
+    <div className="min-h-screen w-full overflow-hidden bg-[#0A0F1A] text-white">
+      {/* background vignettes */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 -left-56 h-[600px] w-[600px] rounded-full blur-3xl opacity-40"
-             style={{ background: "radial-gradient(closest-side, #0ea5e9 0%, transparent 60%)" }} />
-        <div className="absolute -bottom-10 inset-x-0 h-56 opacity-30">
-          <svg className="w-full h-full" viewBox="0 0 1440 160" preserveAspectRatio="none">
-            <defs>
-              <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
-                <path d="M80 0H0V80" fill="none" stroke="rgba(255,255,255,0.08)" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
+        <div
+          className="absolute -top-[280px] -left-[220px] h-[720px] w-[720px] rounded-full blur-3xl opacity-40"
+          style={{
+            background:
+              "radial-gradient(closest-side, rgba(14,165,233,.7), transparent 60%)",
+          }}
+        />
+        <div className="absolute inset-0 bg-[radial-gradient(900px_420px_at_70%_0%,rgba(14,165,233,.10),transparent_60%)]" />
       </div>
 
-      {/* Top Nav */}
-      <header className="sticky top-0 z-20">
-        <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between rounded-full bg-white/5 backdrop-blur border border-white/10 px-4 py-3">
-            <div className="flex items-center gap-2">
-              <div className="h-6 w-6 rounded-md bg-cyan-400" />
-              <span className="text-sm font-semibold tracking-wide text-white/90">GydeXP</span>
-            </div>
+      {/* header pill nav */}
+      <header className="relative flex justify-center py-6">
+        <nav className="flex w-full max-w-6xl items-center justify-between rounded-full bg-gradient-to-r from-[#1a1f27] via-[#1f2937] to-[#0A0F1A] px-5 py-3 shadow-lg ring-1 ring-white/10 backdrop-blur-md">
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <Image
+              src="/gydelogo.png" // place the image in public/gydelogo.png
+              alt="GydeXP Logo"
+              width={28}
+              height={28}
+              className="object-contain"
+            />
+            <span className="text-sm font-semibold">GydeXP</span>
+          </div>
 
-            <ul className="hidden md:flex items-center gap-6 text-sm text-white/70">
-              <li className="hover:text-white transition">Tracking Studio</li>
-              <li className="hover:text-white transition">About Us</li>
-              <li className="hover:text-white transition">Pricing</li>
-              <li className="hover:text-white transition">Experiences</li>
-              <li className="hover:text-white transition">DreamXP</li>
-              <li className="hover:text-white transition">Log In</li>
-            </ul>
+          {/* Nav links */}
+          <div className="flex items-center gap-6">
+            {["Tracking Studio", "About Us", "Pricing", "Experiences", "DreamXP"].map(
+              (item, idx) => (
+                <a
+                  key={idx}
+                  href="#"
+                  className={`text-sm font-medium transition hover:text-white/90 ${
+                    idx === 0 ? "text-white font-semibold" : "text-white/70"
+                  }`}
+                >
+                  {item}
+                </a>
+              )
+            )}
+          </div>
 
-            <button className="ml-4 inline-flex items-center rounded-full bg-[#0ea5e9] hover:bg-[#0891b2] text-white text-sm font-medium px-4 py-2 shadow-[0_8px_30px_rgba(14,165,233,0.35)]">
+          {/* Right actions */}
+          <div className="flex items-center gap-3">
+            <a
+              href="#"
+              className="text-sm font-medium text-white/80 hover:text-white"
+            >
+              Log In
+            </a>
+            <a
+              href="#"
+              className="rounded-full bg-gradient-to-r from-sky-500 to-blue-500 px-4 py-1.5 text-sm font-semibold text-white shadow-md hover:opacity-90 transition"
+            >
               Book a Demo
-            </button>
+            </a>
           </div>
         </nav>
       </header>
 
-      {/* Hero */}
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
-        <section className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center py-12 lg:py-20">
-          <div className="relative z-10">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05]">
-              The issue tracking
-              <br />
-              tool you’ll enjoy using.
-            </h1>
+      {/* hero section */}
+      <main className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 pb-24 pt-6 md:grid-cols-[1.1fr_0.9fr] md:px-8">
+        <section className="max-w-xl">
+          <h1 className="text-4xl font-extrabold leading-[1.06] tracking-tight sm:text-5xl">
+            The issue tracking
+            <br />
+            tool you’ll enjoy using.
+          </h1>
 
-            <p className="mt-6 text-base sm:text-lg text-white/70 max-w-xl">
-              Linear helps streamline software projects, sprints, tasks and bug tracking.
-              It’s built for high-performance teams.
-            </p>
+          <p className="mt-6 text-base leading-7 text-white/70">
+            Linear helps streamline software projects, sprints, tasks and bug
+            tracking. It’s built for high-performance teams.
+          </p>
 
-            <div className="mt-8">
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 rounded-full bg-white text-black px-5 py-3 text-sm font-semibold hover:bg-white/90 transition shadow-[0_8px_30px_rgba(255,255,255,0.15)]"
+          <div className="mt-8">
+            <a
+              href="#"
+              className="group inline-flex items-center gap-2 rounded-full bg-sky-500 px-5 py-3 text-sm font-semibold text-black shadow-[0_8px_30px_rgba(14,165,233,.45)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(14,165,233,.55)]"
+            >
+              Start Your Free Trial
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2"
               >
-                Start Your Free Trial
-                <span className="inline-block h-5 w-5 rounded-full bg-black text-white grid place-items-center text-[11px]">→</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Right visual */}
-          <div className="relative">
-            {/* glow behind image */}
-            <div
-              aria-hidden
-              className="absolute -inset-10 rounded-3xl blur-2xl opacity-70"
-              style={{
-                background:
-                  "radial-gradient(60% 60% at 50% 50%, rgba(14,165,233,0.45) 0%, rgba(2,6,23,0) 65%)",
-              }}
-            />
-            <div className="relative mx-auto max-w-md lg:max-w-lg">
-              <Image
-                src="/tiles.png"
-                alt="Neon blue tiles abstract"
-                width={900}
-                height={900}
-                className="w-full h-auto drop-shadow-[0_30px_80px_rgba(14,165,233,0.45)]"
-                priority
-              />
-            </div>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13 7l5 5-5 5M6 12h12"
+                />
+              </svg>
+            </a>
           </div>
         </section>
+
+        {/* right image (glass cube from /public) */}
+        <div className="relative">
+          <div className="absolute -inset-10 rounded-3xl bg-cyan-400/20 blur-2xl opacity-60 md:opacity-40" />
+          <div className="relative mx-auto aspect-square w-full max-w-[520px]">
+            <Image
+              src="/glasscube.png"
+              alt="Glass Cube"
+              fill
+              priority
+              sizes="(min-width: 1024px) 520px, (min-width: 768px) 420px, 80vw"
+              className="object-contain drop-shadow-[0_24px_70px_rgba(34,211,238,.35)]"
+            />
+          </div>
+        </div>
       </main>
     </div>
   );
