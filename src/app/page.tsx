@@ -242,7 +242,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* BOTTOM SECTION */}
+      {/* BOTTOM SECTION (logos) */}
       <section className="w-full bg-black py-10 flex flex-col items-center justify-center border-t border-white/10">
         <h2
           className="text-0.5xl sm:text-0.5xl font-normal tracking-tight uppercase"
@@ -268,7 +268,73 @@ export default function Page() {
         </div>
       </section>
 
+      {/* PROFESSIONAL TOOL SECTION */}
+      <section
+        className="w-full py-16 flex flex-col items-center justify-center text-center px-6 md:px-8"
+        style={{ backgroundColor: "#1C1D1F", fontFamily: "Inter, sans-serif" }}
+      >
+        <h2 className="text-3xl sm:text-4xl font-bold text-white max-w-2xl">
+          An experience you’d expect from a professional tool.
+        </h2>
+        <p className="mt-4 text-lg sm:text-xl font-bold" style={{ color: "#A7A9BE" }}>
+          Opinionated and designed for daily use.
+        </p>
+
+        {/* perspective wrapper so the 3D hover tilt reads correctly */}
+        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto items-stretch [perspective:1000px]">
+          {[
+            {
+              title: "< 100ms",
+              subtitle: "Built for speed",
+              desc: "Synchronized in real-time across all users. No spinners or waiting.",
+            },
+            {
+              subtitle: "Keyboard first design",
+              desc: "Optimized for efficiency with extensive keyboard shortcuts.",
+            },
+            {
+              subtitle: "For software teams",
+              desc: "Created by software people for software product teams.",
+            },
+            {
+              subtitle: "Works offline",
+              desc: "Access and make changes with or without internet access.",
+            },
+            {
+              subtitle: "Light and dark UI",
+              desc: "We have multiple themes. Use light or dark, your choice.",
+            },
+            {
+              subtitle: "Multiple teams",
+              desc: "Have all your teams in one shared workspace.",
+            },
+          ].map((card, idx) => (
+            <div
+              key={idx}
+              className="p-8 rounded-3xl relative z-10 flex flex-col justify-between h-full
+                         transition-[transform,background-color] duration-300
+                         hover:bg-[#323234] transform-gpu will-change-transform
+                         hover:[transform:rotateX(3deg)_rotateY(-2deg)_translateY(-2px)]"
+              style={{
+                backgroundColor: "#27272A",
+                position: "relative",
+                isolation: "isolate",
+                minHeight: "220px",
+              }}
+            >
+              <div>
+                {card.title && (
+                  <p className="text-sky-400 text-lg font-bold mb-2">{card.title}</p>
+                )}
+                <h3 className="text-2xl font-bold text-white mb-3">{card.subtitle}</h3>
+                <p className="text-white text-base font-medium">{card.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <div className="h-24 md:h-28" />
     </div>
   );
-}
+
