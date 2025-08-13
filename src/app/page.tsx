@@ -1,9 +1,25 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
-import { PanelLeft, CloudOff, Moon, Users } from "lucide-react";
+import {
+  PanelLeft,
+  CloudOff,
+  Moon,
+  Users,
+  Instagram,
+  Youtube,
+} from "lucide-react";
 
-// Interactive cube component
+/* Simple inline Discord glyph */
+function IconDiscord(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M20.317 4.369A18.06 18.06 0 0015.89 3c-.2.36-.43.85-.59 1.23a16.2 16.2 0 00-6.6 0A9.8 9.8 0 008.11 3c-1.57.27-3.05.74-4.43 1.37C1.54 7.26.97 10.02 1.1 12.73c1.86 1.39 3.66 2.24 5.41 2.8.41-.57.78-1.18 1.11-1.82-.61-.23-1.2-.5-1.76-.82.15-.11.3-.23.45-.36 3.38 1.59 7.06 1.59 10.43 0 .15.13.3.25.45.36-.56.32-1.15.6-1.76.82.33.64.7 1.25 1.11 1.82 1.76-.56 3.57-1.41 5.42-2.8.23-4.16-1.04-7.19-2.15-8.36zM9.1 12.82c-.87 0-1.58-.8-1.58-1.78s.71-1.78 1.58-1.78c.88 0 1.59.8 1.59 1.78s-.71 1.78-1.59 1.78zm5.8 0c-.87 0-1.58-.8-1.58-1.78s.71-1.78 1.58-1.78 1.59.8 1.59 1.78-.71 1.78-1.59 1.78z" />
+    </svg>
+  );
+}
+
+/* Interactive cube */
 function InteractiveCube() {
   const ref = useRef<HTMLDivElement | null>(null);
   const prefersReduced =
@@ -22,7 +38,6 @@ function InteractiveCube() {
       const y = e.clientY - r.top;
       const px = x / r.width;
       const py = y / r.height;
-
       const rotY = (px - 0.5) * 30;
       const rotX = (0.5 - py) * 22;
 
@@ -34,7 +49,6 @@ function InteractiveCube() {
         el.style.setProperty("--my", (py * 100).toFixed(2) + "%");
       });
     };
-
     const onLeave = () => {
       el.style.setProperty("--rx", "0deg");
       el.style.setProperty("--ry", "0deg");
@@ -95,6 +109,32 @@ function InteractiveCube() {
 export default function Page() {
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-[#0A0F1A] text-white relative">
+      {/* Helpers */}
+      <style>{`
+        /* Header logo – simple scale on hover */
+        .logo-zoom img { transition: transform 220ms ease; will-change: transform; }
+        .logo-zoom:hover img { transform: scale(1.18); }
+        @media (prefers-reduced-motion: reduce) {
+          .logo-zoom:hover img { transform: none; }
+        }
+
+        /* Section 10 – smoother horizontal wiggle on hover */
+        @keyframes wiggle-smooth {
+          0%   { transform: translate3d(-6px,0,0); }
+          25%  { transform: translate3d(-2px,0,0); }
+          50%  { transform: translate3d(6px,0,0); }
+          75%  { transform: translate3d(2px,0,0); }
+          100% { transform: translate3d(-6px,0,0); }
+        }
+        .wiggle-wrap:hover .wiggle-target {
+          animation: wiggle-smooth 3.2s cubic-bezier(.45,.05,.2,.99) infinite;
+          will-change: transform;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .wiggle-wrap:hover .wiggle-target { animation: none; }
+        }
+      `}</style>
+
       {/* GLOBAL BACKDROP */}
       <div className="pointer-events-none absolute inset-0">
         <div
@@ -111,7 +151,9 @@ export default function Page() {
       <header className="relative flex justify-center py-6">
         <nav className="flex w-full max-w-6xl items-center justify-between rounded-full bg-gradient-to-r from-[#151923] via-[#1b2430] to-[#0A0F1A] px-5 py-3 shadow-lg ring-1 ring-white/10 backdrop-blur-md">
           <div className="flex items-center gap-3">
-            <Image src="/gydelogo.png" alt="GydeXP Logo" width={28} height={28} />
+            <span className="logo-zoom inline-flex">
+              <Image src="/gydelogo.png" alt="GydeXP Logo" width={28} height={28} />
+            </span>
             <span className="text-sm font-semibold">GydeXP</span>
           </div>
           <div className="flex items-center gap-6">
@@ -179,27 +221,22 @@ export default function Page() {
         <InteractiveCube />
       </main>
 
-      {/* MAIL IMAGE SECTION */}
+      {/* MAIL IMAGE SECTION – clean + hover glow (no grids/backplates) */}
       <section id="mail-section" className="relative mx-auto max-w-7xl px-6 md:px-8 pb-24 pt-0">
         <div className="relative z-10 mx-auto flex items-center justify-center">
-          <div className="group relative w-full max-w-[968px] mt-[20%] [perspective:1200px]">
-            <div className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none">
-              <div
-                className="w-[90%] aspect-[8/5] rounded-[28px]
-                           opacity-0 scale-100 blur-2xl transition-all duration-500 ease-out
-                           group-hover:opacity-100 group-hover:scale-110
-                           mix-blend-screen"
-                style={{
-                  background:
-                    "radial-gradient(60% 60% at 50% 50%, rgba(56,189,248,.55) 0%, rgba(14,165,233,.40) 45%, rgba(59,130,246,.28) 70%, transparent 100%)",
-                }}
-              />
-            </div>
+          <div className="group relative w-full max-w-[968px] mt-[20%]">
+            {/* soft cyan→blue glow appears only on hover */}
             <div
-              className="relative w-full aspect-[8/5] z-0
-                         transform-gpu transition-transform duration-500 will-change-transform
-                         group-hover:[transform:translateZ(72px)_scale(1.06)]"
-            >
+              className="pointer-events-none absolute inset-0 -z-10 rounded-2xl opacity-0 scale-95 blur-2xl transition-all duration-500 ease-out
+                         group-hover:opacity-100 group-hover:scale-110"
+              style={{
+                background:
+                  "radial-gradient(65% 65% at 50% 50%, rgba(56,189,248,.45) 0%, rgba(59,130,246,.38) 40%, rgba(14,165,233,.28) 70%, transparent 100%)",
+                boxShadow:
+                  "0 30px 120px rgba(56,189,248,.25), 0 12px 48px rgba(14,165,233,.20)",
+              }}
+            />
+            <div className="relative w-full aspect-[8/5] transform-gpu transition-transform duration-500 group-hover:scale-[1.03]">
               <Image
                 src="/mailimage.png"
                 alt="Mail interface"
@@ -214,7 +251,7 @@ export default function Page() {
       </section>
 
       {/* BOTTOM SECTION (logos) */}
-      <section className="w-full bg-black py-10 flex flex-col items-center justify-center border-t border-white/10">
+      <section className="mt-16 md:mt-24 w-full bg-black py-10 flex flex-col items-center justify-center border-t border-white/10">
         <h2
           className="text-0.5xl sm:text-0.5xl font-normal tracking-tight uppercase"
           style={{ color: "#3A89FF", fontFamily: "Inter, sans-serif" }}
@@ -232,21 +269,26 @@ export default function Page() {
 
       {/* PROFESSIONAL TOOL SECTION */}
       <section
-        className="w-full py-16 flex flex-col items-center justify-center text-center px-6 md:px-8"
+        className="w-full py-24 md:py-28 flex flex-col items-center justify-center text-center px-6 md:px-8"
         style={{ backgroundColor: "#1C1D1F", fontFamily: "Inter, sans-serif" }}
       >
-        <h2 className="text-3xl sm:text-4xl font-bold text-white max-w-2xl">An experience you’d expect from a professional tool.</h2>
+        <h2 className="text-3xl sm:text-4xl font-bold text-white max-w-2xl">
+          An experience you’d expect from a professional tool.
+        </h2>
         <p className="mt-4 text-lg sm:text-xl font-bold" style={{ color: "#A7A9BE" }}>
           Opinionated and designed for daily use.
         </p>
 
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto items-stretch [perspective:1000px]">
+        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto items-stretch [perspective:1000px] mb-24 md:mb-32">
           {[
             {
               subtitle: "Built for speed",
               desc: "Synchronized in real-time across all users. No spinners or waiting.",
               icon: (
-                <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm flex items-center justify-center px-3 py-2 shadow-[0_8px_30px_rgba(255,255,255,.07)]" style={{ color: "#5E6AD2", fontSize: "1.3rem", fontWeight: "bold" }}>
+                <div
+                  className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm flex items-center justify-center px-3 py-2 shadow-[0_8px_30px_rgba(255,255,255,.07)]"
+                  style={{ color: "#5E6AD2", fontSize: "1.3rem", fontWeight: "bold" }}
+                >
                   {"< 100ms"}
                 </div>
               ),
@@ -255,7 +297,10 @@ export default function Page() {
               subtitle: "Keyboard first design",
               desc: "Optimized for efficiency with extensive keyboard shortcuts.",
               icon: (
-                <div className="h-12 w-12 rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm flex items-center justify-center text-2xl shadow-[0_8px_30px_rgba(255,255,255,.07)]" style={{ color: "#5E6AD2" }}>
+                <div
+                  className="h-12 w-12 rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm flex items-center justify-center text-2xl shadow-[0_8px_30px_rgba(255,255,255,.07)]"
+                  style={{ color: "#5E6AD2" }}
+                >
                   ⌘
                 </div>
               ),
@@ -304,7 +349,9 @@ export default function Page() {
             >
               <div className="mb-3 flex justify-center">{card.icon}</div>
               <h3 className="text-2xl font-bold text-white mb-3">{card.subtitle}</h3>
-              <p className="text-base font-medium" style={{ color: "#A7A9BE" }}>{card.desc}</p>
+              <p className="text-base font-medium" style={{ color: "#A7A9BE" }}>
+                {card.desc}
+              </p>
             </div>
           ))}
         </div>
@@ -433,7 +480,6 @@ export default function Page() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
         <div className="group grid w-full grid-cols-1 md:grid-cols-[1.35fr_0.65fr] items-start md:items-center gap-10 md:gap-12 lg:gap-16 mb-16">
-          {/* Left: IMAGE with glow */}
           <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-visible mt-24 md:mt-32 mb-[5%]">
             <div className="absolute -inset-14 -z-10 opacity-0 transition-all duration-500 ease-out pointer-events-none group-hover:opacity-100 group-hover:scale-110">
               <div
@@ -461,7 +507,6 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Right: TEXT */}
           <div
             className="relative z-10 px-6 md:px-0 lg:px-0 justify-self-start md:justify-self-start max-w-[560px]
                        md:-translate-x-16 lg:-translate-x-24 xl:-translate-x-28"
@@ -537,38 +582,32 @@ export default function Page() {
       >
         <div className="mx-auto max-w-7xl space-y-12 px-6 md:px-8">
           {/* Pair 1 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden ring-1 ring-white/10">
+          <div className="group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden ring-1 ring-white/10 [perspective:1200px]">
             <div className="bg-[#1A1C1C] h-full flex flex-col justify-center p-8 md:p-12">
-              {/* Spread icons slightly more & hover-lift on all icons */}
-              <div className="mb-5 flex items-center">
+              {/* PNGs pop & lift on hover */}
+              <div className="mb-5 flex items-center [perspective:1000px]">
                 <Image
                   src="/icona.png"
                   alt="Integration icon A"
                   width={44}
                   height={44}
-                  className="object-contain transition-transform duration-200 hover:-translate-y-1 will-change-transform"
+                  className="object-contain transform-gpu transition-transform duration-300 hover:[transform:translateZ(24px)_scale(1.1)] hover:-translate-y-1"
                 />
-                <span
-                  className="mx-4 h-12 w-[3px] bg-[#27272A] rounded-full"
-                  aria-hidden="true"
-                />
+                <span className="mx-4 h-12 w-[3px] bg-[#27272A] rounded-full" aria-hidden="true" />
                 <Image
                   src="/iconb.png"
                   alt="Integration icon B"
                   width={44}
                   height={44}
-                  className="object-contain transition-transform duration-200 hover:-translate-y-1 will-change-transform"
+                  className="object-contain transform-gpu transition-transform duration-300 hover:[transform:translateZ(24px)_scale(1.1)] hover:-translate-y-1"
                 />
-                <span
-                  className="mx-4 h-12 w-[3px] bg-[#27272A] rounded-full"
-                  aria-hidden="true"
-                />
+                <span className="mx-4 h-12 w-[3px] bg-[#27272A] rounded-full" aria-hidden="true" />
                 <Image
                   src="/iconc.png"
                   alt="Integration icon C"
                   width={44}
                   height={44}
-                  className="object-contain transition-transform duration-200 hover:-translate-y-1 will-change-transform"
+                  className="object-contain transform-gpu transition-transform duration-300 hover:[transform:translateZ(24px)_scale(1.1)] hover:-translate-y-1"
                 />
               </div>
 
@@ -576,33 +615,35 @@ export default function Page() {
                 Automate tracking with GitHub, GitLab and Sentry
               </h4>
               <p className="mt-4 text-base md:text-[17px] leading-7 text-white/65">
-                Linear integrates with your pull requests and Sentry issues.
+                Linear integrates with your pull requests<br />and Sentry issues.
               </p>
             </div>
-            <div className="p-0">
-              <Image
-                src="/sectionina.png"
-                width={1600}
-                height={1000}
-                alt="Integrations preview A"
-                sizes="(min-width:768px) 50vw, 100vw"
-                className="block w-full h-auto"
-                priority
-              />
+            {/* RIGHT IMAGE pops toward viewer on hover */}
+            <div className="p-0 relative">
+              <div className="transform-gpu transition-transform duration-500 will-change-transform group-hover:[transform:translateZ(72px)_scale(1.04)]">
+                <Image
+                  src="/sectionina.png"
+                  width={1600}
+                  height={1000}
+                  alt="Integrations preview A"
+                  sizes="(min-width:768px) 50vw, 100vw"
+                  className="block w-full h-auto"
+                  priority
+                />
+              </div>
             </div>
           </div>
 
           {/* Pair 2 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden ring-1 ring-white/10">
+          <div className="group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden ring-1 ring-white/10 [perspective:1200px]">
             <div className="bg-[#1A1C1C] h-full flex flex-col justify-center p-8 md:p-12">
-              {/* icond above title + hover */}
-              <div className="mb-5">
+              <div className="mb-5 [perspective:1000px]">
                 <Image
                   src="/icond.png"
                   alt="Figma integration icon"
                   width={44}
                   height={44}
-                  className="object-contain transition-transform duration-200 hover:-translate-y-1 will-change-transform"
+                  className="object-contain transform-gpu transition-transform duration-300 hover:[transform:translateZ(24px)_scale(1.1)] hover:-translate-y-1"
                 />
               </div>
 
@@ -610,84 +651,201 @@ export default function Page() {
                 Preview and embed full Figma designs in Linear.
               </h4>
               <p className="mt-4 text-base md:text-[17px] leading-7 text-white/65">
-                Add Figma links to any issue as you work on your designs.
+                Add Figma links to any issue as you work<br />on your designs.
               </p>
             </div>
-            <div className="p-0">
-              <Image
-                src="/sectioninb.png"
-                width={1600}
-                height={1000}
-                alt="Integrations preview B"
-                sizes="(min-width:768px) 50vw, 100vw"
-                className="block w-full h-auto"
-              />
+            <div className="p-0 relative">
+              <div className="transform-gpu transition-transform duration-500 will-change-transform group-hover:[transform:translateZ(72px)_scale(1.04)]">
+                <Image
+                  src="/sectioninb.png"
+                  width={1600}
+                  height={1000}
+                  alt="Integrations preview B"
+                  sizes="(min-width:768px) 50vw, 100vw"
+                  className="block w-full h-auto"
+                />
+              </div>
             </div>
           </div>
 
           {/* Pair 3 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden ring-1 ring-white/10">
+          <div className="group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden ring-1 ring-white/10 [perspective:1200px]">
             <div className="bg-[#1A1C1C] h-full flex flex-col justify-center p-8 md:p-12">
               <h4 className="text-[20px] md:text-[22px] font-semibold text-white">
                 Get updates and create issues with Slack
               </h4>
               <p className="mt-4 text-base md:text-[17px] leading-7 text-white/65">
-                Receive updates directly in your Slack channels and create issues from discussions.
+                Receive updates directly in your Slack<br />channels and create issues from discussions.
               </p>
             </div>
-            <div className="p-0">
-              <Image
-                src="/sectioninc.png"
-                width={1600}
-                height={1000}
-                alt="Integrations preview C"
-                sizes="(min-width:768px) 50vw, 100vw"
-                className="block w-full h-auto"
-              />
+            <div className="p-0 relative">
+              <div className="transform-gpu transition-transform duration-500 will-change-transform group-hover:[transform:translateZ(72px)_scale(1.04)]">
+                <Image
+                  src="/sectioninc.png"
+                  width={1600}
+                  height={1000}
+                  alt="Integrations preview C"
+                  sizes="(min-width:768px) 50vw, 100vw"
+                  className="block w-full h-auto"
+                />
+              </div>
             </div>
           </div>
 
-          {/* Narrow two-card row — increased by ~30% */}
+          {/* Narrow two-card row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Card A */}
             <div className="flex items-center gap-5 rounded-2xl bg-[#1A1C1C] ring-1 ring-white/10 p-6 min-h-[125px]">
               <Image
                 src="/icone.png"
                 alt="Zapier replacement icon"
                 width={46}
                 height={46}
-                className="object-contain transition-transform duration-200 hover:-translate-y-1 will-change-transform"
+                className="object-contain transform-gpu transition-transform duration-300 hover:[transform:translateZ(18px)_scale(1.06)] hover:-translate-y-1"
               />
               <div className="flex-1">
                 <h5 className="text-white font-semibold text-[17px]">
                   Connect with 1000+ tools using Zapier
                 </h5>
                 <p className="text-white/65 text-sm mt-1">
-                  Create new issues based on triggers from Zapier applications.
+                  Create new issues based on triggers from<br />Zapier applications.
                 </p>
               </div>
             </div>
 
-            {/* Card B */}
             <div className="flex items-center gap-5 rounded-2xl bg-[#1A1C1C] ring-1 ring-white/10 p-6 min-h-[125px]">
               <Image
                 src="/iconf.png"
                 alt="API replacement icon"
                 width={46}
                 height={46}
-                className="object-contain transition-transform duration-200 hover:-translate-y-1 will-change-transform"
+                className="object-contain transform-gpu transition-transform duration-300 hover:[transform:translateZ(18px)_scale(1.06)] hover:-translate-y-1"
               />
               <div className="flex-1">
                 <h5 className="text-white font-semibold text-[17px]">
                   Custom workflows using our API
                 </h5>
                 <p className="text-white/65 text-sm mt-1">
-                  Query and mutate data using our GraphQL API to build custom workflows.
+                  Query and mutate data using our GraphQL API<br />to build custom workflows.
                 </p>
               </div>
             </div>
           </div>
-          {/* End narrow row */}
+        </div>
+      </section>
+
+      {/* SECTION TEN */}
+      <section
+        id="section-ten"
+        className="w-full py-24 md:py-28"
+        style={{ backgroundColor: "#1C1D1F", fontFamily: "Inter, sans-serif" }}
+      >
+        <div className="mx-auto max-w-7xl px-6 md:px-8 text-center">
+          <h2 className="group text-white text-3xl sm:text-4xl font-extrabold tracking-tight inline-flex items-center justify-center">
+            Loved by people product
+            <span className="ml-3 inline-block transition-transform duration-300 ease-out group-hover:scale-125 hover:scale-125">
+              ❤️
+            </span>
+          </h2>
+
+          {/* Smoother wiggle on hover */}
+          <div className="wiggle-wrap mt-16 md:mt-20 flex justify-center">
+            <Image
+              src="/sectionten.png"
+              alt="Section ten showcase"
+              width={1600}
+              height={900}
+              sizes="(min-width:1280px) 1100px, (min-width:768px) 80vw, 92vw"
+              className="w-full h-auto max-w-5xl object-contain wiggle-target"
+              priority
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION ELEVEN */}
+      <section
+        id="section-eleven"
+        className="relative w-full bg-[#0B0F16] py-24 md:py-32 overflow-hidden"
+        style={{ fontFamily: "Inter, sans-serif" }}
+      >
+        {/* Subtle radial glow */}
+        <div
+          className="pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 w-[1200px] max-w-[95vw] h-[540px] rounded-full blur-3xl"
+          style={{ background: "radial-gradient(closest-side, rgba(37,99,235,.28), rgba(2,6,23,0) 70%)" }}
+        />
+
+        <div className="relative mx-auto max-w-6xl px-6 md:px-8 text-center">
+          {/* Logo above heading (pops on hover) */}
+          <div className="[perspective:1000px] flex justify-center">
+            <div className="transform-gpu transition-transform duration-500 hover:[transform:translateZ(36px)_scale(1.08)]">
+              <Image
+                src="/lunarlogo.png"
+                alt="Lunar logo"
+                width={56}
+                height={56}
+                className="rounded-xl object-contain"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* Larger heading + paragraph */}
+          <h2 className="mt-6 text-white text-4xl sm:text-5xl font-extrabold tracking-tight">
+            Get started with Linear today.
+          </h2>
+          <p className="mt-4 text-white/75 max-w-3xl mx-auto text-lg sm:text-xl">
+            Linear keeps everyone aligned and working without friction. Engineers,
+            designers, and peers - all collaborating in one tool.
+          </p>
+
+          {/* Columns */}
+          <div className="mt-28 md:mt-40 mx-auto max-w-5xl grid grid-cols-1 sm:grid-cols-3 gap-14 text-left">
+            <div className="justify-self-center sm:justify-self-start">
+              <h3 className="text-white font-semibold mb-5 text-lg sm:text-xl">Product</h3>
+              <ul className="space-y-3 text-base sm:text-[17px] text-white/80">
+                <li><a href="#" className="hover:text-white">Travel Studio</a></li>
+                <li><a href="#" className="hover:text-white">Features</a></li>
+                <li><a href="#" className="hover:text-white">Pricing</a></li>
+                <li><a href="#" className="hover:text-white">Reviews</a></li>
+              </ul>
+            </div>
+            <div className="justify-self-center sm:justify-self-center">
+              <h3 className="text-white font-semibold mb-5 text-lg sm:text-xl">Others</h3>
+              <ul className="space-y-3 text-base sm:text-[17px] text-white/80">
+                <li><a href="#" className="hover:text-white">About GydeXP</a></li>
+                <li><a href="#" className="hover:text-white">Experiences</a></li>
+                <li><a href="#" className="hover:text-white">Dream XP</a></li>
+              </ul>
+            </div>
+            <div className="justify-self-center sm:justify-self-end">
+              <h3 className="text-white font-semibold mb-5 text-lg sm:text-xl">Connect with us</h3>
+              <ul className="space-y-3 text-base sm:text-[17px] text-white/80">
+                <li><a href="#" className="hover:text-white">LinkedIn</a></li>
+                <li><a href="#" className="hover:text-white">Instagram</a></li>
+                <li><a href="#" className="hover:text-white">Youtube</a></li>
+                <li><a href="#" className="hover:text-white">X</a></li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Divider + bottom bar with aligned, consistent icon sizes */}
+          <div className="mt-14 border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-base text-white/70">
+            <span>©2025 - GydeXP</span>
+            <div className="flex items-center gap-5">
+              <a href="#" aria-label="Instagram" className="text-white/85 hover:text-white transition">
+                <Instagram className="h-8 w-8 sm:h-10 sm:w-10 align-middle" />
+              </a>
+              <a href="#" aria-label="YouTube" className="text-white/85 hover:text-white transition">
+                <Youtube className="h-8 w-8 sm:h-10 sm:w-10 align-middle" />
+              </a>
+              <a href="#" aria-label="X" className="text-white/85 hover:text-white transition">
+                <span className="inline-block align-middle text-2xl sm:text-3xl font-semibold leading-none">X</span>
+              </a>
+              <a href="#" aria-label="Discord" className="text-white/85 hover:text-white transition">
+                <IconDiscord className="h-8 w-8 sm:h-10 sm:w-10 align-middle" />
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
