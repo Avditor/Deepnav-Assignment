@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { PanelLeft, CloudOff, Moon, Users } from "lucide-react";
 
 // Interactive cube component
@@ -95,7 +95,7 @@ function InteractiveCube() {
 export default function Page() {
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-[#0A0F1A] text-white relative">
-      {/* GLOBAL BACKDROP (grid removed) */}
+      {/* GLOBAL BACKDROP */}
       <div className="pointer-events-none absolute inset-0">
         <div
           className="absolute -top-[28vw] -left-[22vw] h-[90vw] w-[90vw] rounded-full blur-3xl opacity-40"
@@ -179,36 +179,40 @@ export default function Page() {
         <InteractiveCube />
       </main>
 
-      {/* CURVED SEPARATOR */}
-      <div className="relative">
-        <svg className="block w-full h-16 md:h-20" viewBox="0 0 1440 120" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="sep" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="rgba(255,255,255,0.08)" />
-              <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-            </linearGradient>
-          </defs>
-          <path d="M0,40 C240,100 480,0 720,40 C960,80 1200,20 1440,60 L1440,120 L0,120 Z" fill="url(#sep)" />
-        </svg>
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-      </div>
-
-      {/* MAIL IMAGE SECTION */}
-      <section id="mail-section" className="relative mx-auto max-w-7xl px-6 md:px-8 pb-24 pt-2 -mt-2">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(780px_360px_at_50%_0%,rgba(14,165,233,.10),transparent_65%)]" />
+      {/* MAIL IMAGE SECTION — 20% smaller, 20% more top margin; smooth glow without black shadow */}
+      <section id="mail-section" className="relative mx-auto max-w-7xl px-6 md:px-8 pb-24 pt-0">
         <div className="relative z-10 mx-auto flex items-center justify-center">
-          <Image
-            src="/mailimage.png"
-            alt="Mail interface"
-            width={1600}
-            height={1000}
-            sizes="(min-width: 1280px) 1100px, (min-width: 768px) 900px, 92vw"
-            className="w-full max-w-[1100px] rounded-2xl border border-white/10 shadow-[0_20px_80px_rgba(14,165,233,.25)]"
-          />
-        </div>
-        <div className="pointer-events-none relative mt-14 h-24">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
-          <div className="absolute inset-x-0 top-2 h-20 bg-gradient-to-b from-transparent to-cyan-500/5 blur-2xl" />
+          <div className="group relative w-full max-w-[968px] mt-[20%] [perspective:1200px]">
+            {/* Soft luminous glow (placed behind, uses screen blend to avoid dark halos) */}
+            <div className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none">
+              <div
+                className="w-[90%] aspect-[8/5] rounded-[28px]
+                           opacity-0 scale-100 blur-2xl transition-all duration-500 ease-out
+                           group-hover:opacity-100 group-hover:scale-110
+                           mix-blend-screen"
+                style={{
+                  background:
+                    "radial-gradient(60% 60% at 50% 50%, rgba(56,189,248,.55) 0%, rgba(14,165,233,.40) 45%, rgba(59,130,246,.28) 70%, transparent 100%)",
+                }}
+              />
+            </div>
+
+            {/* Image wrapper with gentle pop on hover */}
+            <div
+              className="relative w-full aspect-[8/5] z-0
+                         transform-gpu transition-transform duration-500 will-change-transform
+                         group-hover:[transform:translateZ(72px)_scale(1.06)]"
+            >
+              <Image
+                src="/mailimage.png"
+                alt="Mail interface"
+                fill
+                sizes="(min-width:1280px) 968px, (min-width:768px) 70vw, 88vw"
+                className="object-contain rounded-2xl"
+                priority
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -226,7 +230,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* COLORED GAP EXTENSION BETWEEN LOGOS & PROFESSIONAL TOOL */}
+      {/* COLORED GAP EXTENSION */}
       <div style={{ backgroundColor: "#1C1D1F", height: "80px" }} />
 
       {/* PROFESSIONAL TOOL SECTION */}
@@ -312,23 +316,31 @@ export default function Page() {
       {/* SECTION FIVE */}
       <section
         id="section-five"
-        className="relative w-full overflow-hidden py-24 md:py-32 min-h-[760px] md:min-h-[820px]"
+        className="group relative w-full overflow-hidden py-24 md:py-32 min-h-[760px] md:min-h-[820px]"
         aria-label="Section Five"
         style={{ fontFamily: "Inter, sans-serif" }}
       >
         <div className="absolute inset-x-0 -top-0.5 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="absolute inset-y-0 right-0 w-[72vw] md:w-[58vw] lg:w-[50vw] flex items-center justify-end pointer-events-none">
-          <div className="relative w-full h-[90%] max-h-[540px] md:max-h-[612px]">
-            <Image
-              src="/sectionfive.png"
-              alt="Interface screenshot"
-              fill
-              sizes="100vw"
-              className="object-contain object-right drop-shadow-[0_20px_80px_rgba(14,165,233,.25)]"
-              priority
-            />
+
+        <div className="absolute inset-y-0 right-0 w-[72vw] md:w-[58vw] lg:w-[50vw] flex items-center justify-end overflow-visible">
+          <div className="relative w-full h-[90%] max-h-[540px] md:max-h-[612px] overflow-visible">
+            <div
+              className="absolute inset-0 origin-right transform-gpu will-change-transform transition-transform duration-500 ease-out
+                         translate-x-[7%] scale-[0.936]
+                         group-hover:translate-x-[4%] group-hover:scale-[1.014]"
+            >
+              <Image
+                src="/sectionfive.png"
+                alt="Interface screenshot"
+                fill
+                sizes="100vw"
+                className="object-contain object-right drop-shadow-[0_20px_80px_rgba(14,165,233,.25)]"
+                priority
+              />
+            </div>
           </div>
         </div>
+
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <div className="max-w-xl min-h-[540px] md:min-h-[612px] flex flex-col justify-center">
@@ -353,16 +365,14 @@ export default function Page() {
         </div>
       </section>
 
-      {/* SECTION SIX — keycaps pop closer on hover; overlay image 3D hover */}
+      {/* SECTION SIX */}
       <section
         id="section-six"
         className="w-full"
         style={{ backgroundColor: "#1C1D1F", fontFamily: "Inter, sans-serif" }}
       >
         <div className="mx-auto max-w-7xl px-6 md:px-8">
-          {/* Top content */}
           <div className="pt-16 pb-8 flex flex-col items-center text-center">
-            {/* Perspective wrapper so keycaps can translateZ on hover */}
             <div className="mb-6 flex items-center gap-3 [perspective:1200px]">
               {["⌘", "K"].map((k, i) => (
                 <span
@@ -385,10 +395,8 @@ export default function Page() {
             </p>
           </div>
 
-          {/* Stacked images with 3D overlay on hover */}
           <div className="pb-24 flex justify-center">
             <div className="group relative w-full max-w-5xl aspect-[16/9] [perspective:1200px]">
-              {/* Base image */}
               <Image
                 src="/sectionsix.png"
                 alt="Command menu base"
@@ -397,7 +405,6 @@ export default function Page() {
                 className="object-contain"
                 priority
               />
-              {/* Overlay (smaller, centered, moves toward screen on hover) */}
               <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                 <div
                   className="relative w-[72%] md:w-[60%] aspect-[16/9]
@@ -417,6 +424,56 @@ export default function Page() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION SEVEN */}
+      <section
+        id="section-seven"
+        aria-label="Section Seven"
+        className="relative w-full bg-black py-20 md:py-28 overflow-visible"
+        style={{ fontFamily: "Inter, sans-serif" }}
+      >
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+        <div className="group grid w-full grid-cols-1 md:grid-cols-[1.35fr_0.65fr] items-start md:items-center gap-10 md:gap-12 lg:gap-16 mb-16">
+          {/* Left: IMAGE */}
+          <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-visible mt-24 md:mt-32">
+            <div
+              className="absolute inset-0 origin-left transform-gpu will-change-transform transition-transform duration-500 ease-out
+                         -translate-x-[7%] scale-[1.56]
+                         group-hover:-translate-x-[4%] group-hover:scale-[1.69]"
+            >
+              <Image
+                src="/sectionsev.png"
+                alt="Section seven visual"
+                fill
+                sizes="(min-width:1280px) 1600px, (min-width:768px) 120vw, 120vw"
+                className="object-contain object-left w-full h-full drop-shadow-[0_24px_80px_rgba(0,0,0,.55)]"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* Right: TEXT */}
+          <div
+            className="relative z-10 px-6 md:px-0 lg:px-0 justify-self-start md:justify-self-start max-w-[560px]
+                       md:-translate-x-16 lg:-translate-x-24 xl:-translate-x-28"
+          >
+            <h3 className="text-[26px] sm:text-[30px] md:text-[34px] font-extrabold leading-tight tracking-tight">
+              Build team<br />momentum with<br />Cycles
+            </h3>
+
+            <p className="mt-5 text-sm sm:text-[15px] leading-7 text-white/80">
+              <span className="font-semibold text-white">Velocity and estimates.</span>{" "}
+              Track your<br />team’s workload and velocity.
+            </p>
+
+            <p className="mt-4 text-sm sm:text-[15px] leading-7 text-white/80">
+              <span className="font-semibold text-white">Automated.</span>{" "}
+              Cycles run on<br />an automated schedule, so you can<br />focus on your work.
+            </p>
           </div>
         </div>
       </section>
