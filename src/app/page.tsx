@@ -98,7 +98,7 @@ function InteractiveCube() {
 export default function Page() {
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-[#0A0F1A] text-white relative">
-      {/* GLOBAL BACKDROP (restored) */}
+      {/* GLOBAL BACKDROP (grid removed) */}
       <div className="pointer-events-none absolute inset-0">
         <div
           className="absolute -top-[28vw] -left-[22vw] h-[90vw] w-[90vw] rounded-full blur-3xl opacity-40"
@@ -114,26 +114,6 @@ export default function Page() {
               "radial-gradient(closest-side, rgba(56,189,248,.35), transparent 65%)",
           }}
         />
-        <svg
-          className="absolute inset-0 w-full h-full opacity-[0.06]"
-          viewBox="0 0 1440 1024"
-          preserveAspectRatio="none"
-        >
-          <defs>
-            <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
-              <path d="M64 0H0V64" fill="none" stroke="white" strokeWidth="1" />
-            </pattern>
-            <mask id="fade">
-              <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="white" />
-                <stop offset="70%" stopColor="white" />
-                <stop offset="100%" stopColor="black" />
-              </linearGradient>
-              <rect width="100%" height="100%" fill="url(#grad)" />
-            </mask>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" mask="url(#fade)" />
-        </svg>
       </div>
 
       {/* HEADER */}
@@ -210,7 +190,7 @@ export default function Page() {
         <InteractiveCube />
       </main>
 
-      {/* CURVED SEPARATOR (restored) */}
+      {/* CURVED SEPARATOR */}
       <div className="relative">
         <svg className="block w-full h-16 md:h-20" viewBox="0 0 1440 120" preserveAspectRatio="none">
           <defs>
@@ -219,12 +199,12 @@ export default function Page() {
               <stop offset="100%" stopColor="rgba(255,255,255,0)" />
             </linearGradient>
           </defs>
-        <path d="M0,40 C240,100 480,0 720,40 C960,80 1200,20 1440,60 L1440,120 L0,120 Z" fill="url(#sep)" />
+          <path d="M0,40 C240,100 480,0 720,40 C960,80 1200,20 1440,60 L1440,120 L0,120 Z" fill="url(#sep)" />
         </svg>
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
       </div>
 
-      {/* MAIL IMAGE SECTION (restored) */}
+      {/* MAIL IMAGE SECTION */}
       <section id="mail-section" className="relative mx-auto max-w-7xl px-6 md:px-8 pb-24 pt-2 -mt-2">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(780px_360px_at_50%_0%,rgba(14,165,233,.10),transparent_65%)]" />
         <div className="relative z-10 mx-auto flex items-center justify-center">
@@ -367,6 +347,57 @@ export default function Page() {
               </p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* SECTION FIVE (taller; image size unchanged; text vertically centered & manual line breaks) */}
+      <section
+        id="section-five"
+        className="relative w-full overflow-hidden py-24 md:py-32 min-h-[760px] md:min-h-[820px]"
+        aria-label="Section Five"
+        style={{ fontFamily: "Inter, sans-serif" }}
+      >
+        <div className="absolute inset-x-0 -top-0.5 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+        {/* Right image: keep exact visual size via max-heights */}
+        <div className="absolute inset-y-0 right-0 w-[72vw] md:w-[58vw] lg:w-[50vw] flex items-center justify-end pointer-events-none">
+          <div className="relative w-full h-[90%] max-h-[540px] md:max-h-[612px]">
+            <Image
+              src="/sectionfive.png"
+              alt="Interface screenshot"
+              fill
+              sizes="100vw"
+              className="object-contain object-right drop-shadow-[0_20px_80px_rgba(14,165,233,.25)]"
+              priority
+            />
+          </div>
+        </div>
+
+        {/* Left text content with forced wraps like screenshot 2 */}
+        <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            <div className="max-w-xl min-h-[540px] md:min-h-[612px] flex flex-col justify-center">
+              <h3 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight">
+                Interface,<br />streamlined.
+              </h3>
+
+              <p className="mt-6 text-base leading-7 text-white/80">
+                <span className="font-semibold text-white">Robust.</span> Fast to navigate. Create
+                <br />
+                issues in seconds. Add priorities,
+                <br />
+                labels and estimates.
+              </p>
+
+              <p className="mt-5 text-base leading-7 text-white/80">
+                <span className="font-semibold text-white">List and board.</span> See your issues in
+                <br />
+                either a list or board view.
+              </p>
+            </div>
+
+            <div className="hidden md:block" />
+          </div>
         </div>
       </section>
 
