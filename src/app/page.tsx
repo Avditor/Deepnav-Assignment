@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import { PanelLeft, CloudOff, Moon, Users } from "lucide-react";
 
 // Interactive cube component
 function InteractiveCube() {
@@ -97,7 +98,7 @@ function InteractiveCube() {
 export default function Page() {
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-[#0A0F1A] text-white relative">
-      {/* GLOBAL BACKDROP */}
+      {/* GLOBAL BACKDROP (restored) */}
       <div className="pointer-events-none absolute inset-0">
         <div
           className="absolute -top-[28vw] -left-[22vw] h-[90vw] w-[90vw] rounded-full blur-3xl opacity-40"
@@ -209,7 +210,7 @@ export default function Page() {
         <InteractiveCube />
       </main>
 
-      {/* CURVED SEPARATOR */}
+      {/* CURVED SEPARATOR (restored) */}
       <div className="relative">
         <svg className="block w-full h-16 md:h-20" viewBox="0 0 1440 120" preserveAspectRatio="none">
           <defs>
@@ -218,12 +219,12 @@ export default function Page() {
               <stop offset="100%" stopColor="rgba(255,255,255,0)" />
             </linearGradient>
           </defs>
-          <path d="M0,40 C240,100 480,0 720,40 C960,80 1200,20 1440,60 L1440,120 L0,120 Z" fill="url(#sep)" />
+        <path d="M0,40 C240,100 480,0 720,40 C960,80 1200,20 1440,60 L1440,120 L0,120 Z" fill="url(#sep)" />
         </svg>
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
       </div>
 
-      {/* MAIL IMAGE SECTION */}
+      {/* MAIL IMAGE SECTION (restored) */}
       <section id="mail-section" className="relative mx-auto max-w-7xl px-6 md:px-8 pb-24 pt-2 -mt-2">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(780px_360px_at_50%_0%,rgba(14,165,233,.10),transparent_65%)]" />
         <div className="relative z-10 mx-auto flex items-center justify-center">
@@ -268,6 +269,9 @@ export default function Page() {
         </div>
       </section>
 
+      {/* COLORED GAP EXTENSION BETWEEN LOGOS & PROFESSIONAL TOOL */}
+      <div style={{ backgroundColor: "#1C1D1F", height: "80px" }} />
+
       {/* PROFESSIONAL TOOL SECTION */}
       <section
         className="w-full py-16 flex flex-col items-center justify-center text-center px-6 md:px-8"
@@ -280,33 +284,67 @@ export default function Page() {
           Opinionated and designed for daily use.
         </p>
 
-        {/* perspective wrapper so the 3D hover tilt reads correctly */}
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto items-stretch [perspective:1000px]">
           {[
             {
-              title: "< 100ms",
               subtitle: "Built for speed",
               desc: "Synchronized in real-time across all users. No spinners or waiting.",
+              icon: (
+                <div
+                  className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm flex items-center justify-center px-3 py-2 shadow-[0_8px_30px_rgba(255,255,255,.07)]"
+                  style={{ color: "#5E6AD2", fontSize: "1.3rem", fontWeight: "bold" }}
+                >
+                  {"< 100ms"}
+                </div>
+              ),
             },
             {
               subtitle: "Keyboard first design",
               desc: "Optimized for efficiency with extensive keyboard shortcuts.",
+              icon: (
+                <div
+                  className="h-12 w-12 rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm flex items-center justify-center text-2xl shadow-[0_8px_30px_rgba(255,255,255,.07)]"
+                  style={{ color: "#5E6AD2" }}
+                >
+                  ⌘
+                </div>
+              ),
             },
             {
               subtitle: "For software teams",
               desc: "Created by software people for software product teams.",
+              icon: (
+                <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm flex items-center justify-center p-2 shadow-[0_8px_30px_rgba(255,255,255,.07)]">
+                  <PanelLeft color="#5E6AD2" size={32} />
+                </div>
+              ),
             },
             {
               subtitle: "Works offline",
               desc: "Access and make changes with or without internet access.",
+              icon: (
+                <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm flex items-center justify-center p-2 shadow-[0_8px_30px_rgba(255,255,255,.07)]">
+                  <CloudOff color="#5E6AD2" size={32} />
+                </div>
+              ),
             },
             {
               subtitle: "Light and dark UI",
               desc: "We have multiple themes. Use light or dark, your choice.",
+              icon: (
+                <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm flex items-center justify-center p-2 shadow-[0_8px_30px_rgba(255,255,255,.07)]">
+                  <Moon color="#5E6AD2" size={32} />
+                </div>
+              ),
             },
             {
               subtitle: "Multiple teams",
               desc: "Have all your teams in one shared workspace.",
+              icon: (
+                <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm flex items-center justify-center p-2 shadow-[0_8px_30px_rgba(255,255,255,.07)]">
+                  <Users color="#5E6AD2" size={32} />
+                </div>
+              ),
             },
           ].map((card, idx) => (
             <div
@@ -322,13 +360,11 @@ export default function Page() {
                 minHeight: "220px",
               }}
             >
-              <div>
-                {card.title && (
-                  <p className="text-sky-400 text-lg font-bold mb-2">{card.title}</p>
-                )}
-                <h3 className="text-2xl font-bold text-white mb-3">{card.subtitle}</h3>
-                <p className="text-white text-base font-medium">{card.desc}</p>
-              </div>
+              <div className="mb-3 flex justify-center">{card.icon}</div>
+              <h3 className="text-2xl font-bold text-white mb-3">{card.subtitle}</h3>
+              <p className="text-base font-medium" style={{ color: "#A7A9BE" }}>
+                {card.desc}
+              </p>
             </div>
           ))}
         </div>
