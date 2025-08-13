@@ -423,7 +423,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* SECTION SEVEN — bottom margin reduced by ~5% (viewport height) */}
+      {/* SECTION SEVEN */}
       <section
         id="section-seven"
         aria-label="Section Seven"
@@ -433,9 +433,8 @@ export default function Page() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
         <div className="group grid w-full grid-cols-1 md:grid-cols-[1.35fr_0.65fr] items-start md:items-center gap-10 md:gap-12 lg:gap-16 mb-16">
-          {/* Left: IMAGE with equal top earlier, bottom now 5% less */}
+          {/* Left: IMAGE with glow */}
           <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-visible mt-24 md:mt-32 mb-[5%]">
-            {/* Hover glow (prominent) */}
             <div className="absolute -inset-14 -z-10 opacity-0 transition-all duration-500 ease-out pointer-events-none group-hover:opacity-100 group-hover:scale-110">
               <div
                 className="h-full w-full rounded-[44px] blur-[110px] mix-blend-screen"
@@ -484,7 +483,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* SECTION EIGHT — text + right image */}
+      {/* SECTION EIGHT */}
       <section
         id="section-eight"
         className="group relative w-full overflow-hidden py-24 md:py-32 min-h-[760px] md:min-h-[820px]"
@@ -492,8 +491,6 @@ export default function Page() {
         style={{ fontFamily: "Inter, sans-serif", backgroundColor: "#1C1D1F" }}
       >
         <div className="absolute inset-x-0 -top-0.5 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-        {/* Right-side IMAGE */}
         <div className="absolute inset-y-0 right-0 w-[72vw] md:w-[58vw] lg:w-[50vw] flex items-center justify-end overflow-visible">
           <div className="relative w-full h-[90%] max-h-[540px] md:max-h-[612px] overflow-visible">
             <div
@@ -512,15 +509,12 @@ export default function Page() {
             </div>
           </div>
         </div>
-
-        {/* Left TEXT */}
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <div className="max-w-xl min-h-[540px] md:min-h-[612px] flex flex-col justify-center">
               <h3 className="text-[30px] sm:text-[36px] md:text-[42px] font-extrabold leading-tight tracking-tight text-white">
                 Set direction<br />with Roadmap
               </h3>
-
               <p className="mt-5 text-[15px] sm:text-[16px] leading-7 text-white/80">
                 <span className="font-semibold text-white">Focus on the big picture.</span><br />
                 Set milestones to tie projects to larger<br />
@@ -532,6 +526,168 @@ export default function Page() {
             </div>
             <div className="hidden md:block" />
           </div>
+        </div>
+      </section>
+
+      {/* SECTION NINE */}
+      <section
+        id="section-nine"
+        className="relative w-full bg-black py-24 md:py-32"
+        style={{ fontFamily: "Inter, sans-serif" }}
+      >
+        <div className="mx-auto max-w-7xl space-y-12 px-6 md:px-8">
+          {/* Pair 1 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden ring-1 ring-white/10">
+            <div className="bg-[#1A1C1C] h-full flex flex-col justify-center p-8 md:p-12">
+              {/* Spread icons slightly more & hover-lift on all icons */}
+              <div className="mb-5 flex items-center">
+                <Image
+                  src="/icona.png"
+                  alt="Integration icon A"
+                  width={44}
+                  height={44}
+                  className="object-contain transition-transform duration-200 hover:-translate-y-1 will-change-transform"
+                />
+                <span
+                  className="mx-4 h-12 w-[3px] bg-[#27272A] rounded-full"
+                  aria-hidden="true"
+                />
+                <Image
+                  src="/iconb.png"
+                  alt="Integration icon B"
+                  width={44}
+                  height={44}
+                  className="object-contain transition-transform duration-200 hover:-translate-y-1 will-change-transform"
+                />
+                <span
+                  className="mx-4 h-12 w-[3px] bg-[#27272A] rounded-full"
+                  aria-hidden="true"
+                />
+                <Image
+                  src="/iconc.png"
+                  alt="Integration icon C"
+                  width={44}
+                  height={44}
+                  className="object-contain transition-transform duration-200 hover:-translate-y-1 will-change-transform"
+                />
+              </div>
+
+              <h4 className="text-[20px] md:text-[22px] font-semibold text-white">
+                Automate tracking with GitHub, GitLab and Sentry
+              </h4>
+              <p className="mt-4 text-base md:text-[17px] leading-7 text-white/65">
+                Linear integrates with your pull requests and Sentry issues.
+              </p>
+            </div>
+            <div className="p-0">
+              <Image
+                src="/sectionina.png"
+                width={1600}
+                height={1000}
+                alt="Integrations preview A"
+                sizes="(min-width:768px) 50vw, 100vw"
+                className="block w-full h-auto"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* Pair 2 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden ring-1 ring-white/10">
+            <div className="bg-[#1A1C1C] h-full flex flex-col justify-center p-8 md:p-12">
+              {/* icond above title + hover */}
+              <div className="mb-5">
+                <Image
+                  src="/icond.png"
+                  alt="Figma integration icon"
+                  width={44}
+                  height={44}
+                  className="object-contain transition-transform duration-200 hover:-translate-y-1 will-change-transform"
+                />
+              </div>
+
+              <h4 className="text-[20px] md:text-[22px] font-semibold text-white">
+                Preview and embed full Figma designs in Linear.
+              </h4>
+              <p className="mt-4 text-base md:text-[17px] leading-7 text-white/65">
+                Add Figma links to any issue as you work on your designs.
+              </p>
+            </div>
+            <div className="p-0">
+              <Image
+                src="/sectioninb.png"
+                width={1600}
+                height={1000}
+                alt="Integrations preview B"
+                sizes="(min-width:768px) 50vw, 100vw"
+                className="block w-full h-auto"
+              />
+            </div>
+          </div>
+
+          {/* Pair 3 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden ring-1 ring-white/10">
+            <div className="bg-[#1A1C1C] h-full flex flex-col justify-center p-8 md:p-12">
+              <h4 className="text-[20px] md:text-[22px] font-semibold text-white">
+                Get updates and create issues with Slack
+              </h4>
+              <p className="mt-4 text-base md:text-[17px] leading-7 text-white/65">
+                Receive updates directly in your Slack channels and create issues from discussions.
+              </p>
+            </div>
+            <div className="p-0">
+              <Image
+                src="/sectioninc.png"
+                width={1600}
+                height={1000}
+                alt="Integrations preview C"
+                sizes="(min-width:768px) 50vw, 100vw"
+                className="block w-full h-auto"
+              />
+            </div>
+          </div>
+
+          {/* Narrow two-card row — increased by ~30% */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Card A */}
+            <div className="flex items-center gap-5 rounded-2xl bg-[#1A1C1C] ring-1 ring-white/10 p-6 min-h-[125px]">
+              <Image
+                src="/icone.png"
+                alt="Zapier replacement icon"
+                width={46}
+                height={46}
+                className="object-contain transition-transform duration-200 hover:-translate-y-1 will-change-transform"
+              />
+              <div className="flex-1">
+                <h5 className="text-white font-semibold text-[17px]">
+                  Connect with 1000+ tools using Zapier
+                </h5>
+                <p className="text-white/65 text-sm mt-1">
+                  Create new issues based on triggers from Zapier applications.
+                </p>
+              </div>
+            </div>
+
+            {/* Card B */}
+            <div className="flex items-center gap-5 rounded-2xl bg-[#1A1C1C] ring-1 ring-white/10 p-6 min-h-[125px]">
+              <Image
+                src="/iconf.png"
+                alt="API replacement icon"
+                width={46}
+                height={46}
+                className="object-contain transition-transform duration-200 hover:-translate-y-1 will-change-transform"
+              />
+              <div className="flex-1">
+                <h5 className="text-white font-semibold text-[17px]">
+                  Custom workflows using our API
+                </h5>
+                <p className="text-white/65 text-sm mt-1">
+                  Query and mutate data using our GraphQL API to build custom workflows.
+                </p>
+              </div>
+            </div>
+          </div>
+          {/* End narrow row */}
         </div>
       </section>
 
