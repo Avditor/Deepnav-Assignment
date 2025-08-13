@@ -179,11 +179,10 @@ export default function Page() {
         <InteractiveCube />
       </main>
 
-      {/* MAIL IMAGE SECTION — 20% smaller, 20% more top margin; smooth glow without black shadow */}
+      {/* MAIL IMAGE SECTION */}
       <section id="mail-section" className="relative mx-auto max-w-7xl px-6 md:px-8 pb-24 pt-0">
         <div className="relative z-10 mx-auto flex items-center justify-center">
           <div className="group relative w-full max-w-[968px] mt-[20%] [perspective:1200px]">
-            {/* Soft luminous glow (placed behind, uses screen blend to avoid dark halos) */}
             <div className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none">
               <div
                 className="w-[90%] aspect-[8/5] rounded-[28px]
@@ -196,8 +195,6 @@ export default function Page() {
                 }}
               />
             </div>
-
-            {/* Image wrapper with gentle pop on hover */}
             <div
               className="relative w-full aspect-[8/5] z-0
                          transform-gpu transition-transform duration-500 will-change-transform
@@ -321,7 +318,6 @@ export default function Page() {
         style={{ fontFamily: "Inter, sans-serif" }}
       >
         <div className="absolute inset-x-0 -top-0.5 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
         <div className="absolute inset-y-0 right-0 w-[72vw] md:w-[58vw] lg:w-[50vw] flex items-center justify-end overflow-visible">
           <div className="relative w-full h-[90%] max-h-[540px] md:max-h-[612px] overflow-visible">
             <div
@@ -340,7 +336,6 @@ export default function Page() {
             </div>
           </div>
         </div>
-
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <div className="max-w-xl min-h-[540px] md:min-h-[612px] flex flex-col justify-center">
@@ -428,7 +423,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* SECTION SEVEN */}
+      {/* SECTION SEVEN — bottom margin reduced by ~5% (viewport height) */}
       <section
         id="section-seven"
         aria-label="Section Seven"
@@ -438,19 +433,30 @@ export default function Page() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
         <div className="group grid w-full grid-cols-1 md:grid-cols-[1.35fr_0.65fr] items-start md:items-center gap-10 md:gap-12 lg:gap-16 mb-16">
-          {/* Left: IMAGE */}
-          <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-visible mt-24 md:mt-32">
+          {/* Left: IMAGE with equal top earlier, bottom now 5% less */}
+          <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-visible mt-24 md:mt-32 mb-[5%]">
+            {/* Hover glow (prominent) */}
+            <div className="absolute -inset-14 -z-10 opacity-0 transition-all duration-500 ease-out pointer-events-none group-hover:opacity-100 group-hover:scale-110">
+              <div
+                className="h-full w-full rounded-[44px] blur-[110px] mix-blend-screen"
+                style={{
+                  background:
+                    "radial-gradient(80% 100% at 10% 50%, rgba(99,102,241,.70) 0%, rgba(59,130,246,.60) 35%, rgba(14,165,233,.48) 70%, transparent 100%)",
+                }}
+              />
+            </div>
+
             <div
               className="absolute inset-0 origin-left transform-gpu will-change-transform transition-transform duration-500 ease-out
-                         -translate-x-[7%] scale-[1.56]
-                         group-hover:-translate-x-[4%] group-hover:scale-[1.69]"
+                         -translate-x-[7%] scale-[1.41]
+                         group-hover:-translate-x-[5%] group-hover:scale-[1.54]"
             >
               <Image
                 src="/sectionsev.png"
                 alt="Section seven visual"
                 fill
-                sizes="(min-width:1280px) 1600px, (min-width:768px) 120vw, 120vw"
-                className="object-contain object-left w-full h-full drop-shadow-[0_24px_80px_rgba(0,0,0,.55)]"
+                sizes="100vw"
+                className="object-contain object-left w-full h-full drop-shadow-[0_36px_140px_rgba(99,102,241,.50)]"
                 priority
               />
             </div>
@@ -474,6 +480,57 @@ export default function Page() {
               <span className="font-semibold text-white">Automated.</span>{" "}
               Cycles run on<br />an automated schedule, so you can<br />focus on your work.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION EIGHT — text + right image */}
+      <section
+        id="section-eight"
+        className="group relative w-full overflow-hidden py-24 md:py-32 min-h-[760px] md:min-h-[820px]"
+        aria-label="Section Eight"
+        style={{ fontFamily: "Inter, sans-serif", backgroundColor: "#1C1D1F" }}
+      >
+        <div className="absolute inset-x-0 -top-0.5 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+        {/* Right-side IMAGE */}
+        <div className="absolute inset-y-0 right-0 w-[72vw] md:w-[58vw] lg:w-[50vw] flex items-center justify-end overflow-visible">
+          <div className="relative w-full h-[90%] max-h-[540px] md:max-h-[612px] overflow-visible">
+            <div
+              className="absolute inset-0 origin-right transform-gpu will-change-transform transition-transform duration-500 ease-out
+                         translate-x-[7%] scale-[0.983]
+                         group-hover:translate-x-[4%] group-hover:scale-[1.065]"
+            >
+              <Image
+                src="/sectioneight.png"
+                alt="Section eight visual"
+                fill
+                sizes="100vw"
+                className="object-contain object-right drop-shadow-[0_20px_80px_rgba(14,165,233,.25)]"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Left TEXT */}
+        <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            <div className="max-w-xl min-h-[540px] md:min-h-[612px] flex flex-col justify-center">
+              <h3 className="text-[30px] sm:text-[36px] md:text-[42px] font-extrabold leading-tight tracking-tight text-white">
+                Set direction<br />with Roadmap
+              </h3>
+
+              <p className="mt-5 text-[15px] sm:text-[16px] leading-7 text-white/80">
+                <span className="font-semibold text-white">Focus on the big picture.</span><br />
+                Set milestones to tie projects to larger<br />
+                company goals and motivate your<br />
+                team. View all company projects in<br />
+                one streamlined view and easily<br />
+                identify what needs your attention.
+              </p>
+            </div>
+            <div className="hidden md:block" />
           </div>
         </div>
       </section>
